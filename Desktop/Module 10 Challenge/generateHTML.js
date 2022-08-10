@@ -1,27 +1,20 @@
-function generateHTML (data) {
-    return `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    
-        <link
-        rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        />
-        <link rel="stylesheet" href="style.css" />
-        <title>My Team</title>
-    </head>
-
-    <body>
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-4">My Team</h1>
-            <p class="lead">Find the contact information for my team below!</p>
-        </div>
-    </div>  
-    </body>
+function generateManager (manager) {
+    return
     `
+    <div class="col-4 mt-4">
+        <div class="card h-100>
+            <div class="card-header">
+                <h3>${manager.managerName}</h3>
+                <h4>Manager</h4><i class="material-icons">content_paste</i>
+            </div>
+
+            <div class="card-body">
+                <p class="id">ID: ${manager.managerID}</p>
+                <p class="email">Email: <a href="mailto${manager.managerEmail}</a></p>
+                <p class="number">Office Number: ${manager.managerNumber}</p>
+            </div>
+
+        </div>
+    </div>
+    `;
 }
