@@ -1,4 +1,8 @@
 const inquirer  = require('inquirer');
+const fs = require('fs');
+const generateHTML = require('./generateHTML');
+const memberArray = [];
+
 
 function pickTeamMember (){
 
@@ -72,6 +76,8 @@ function teamManagerQuestions (){
 
         ])
         .then((answers) => {
+            
+            memberArray.push(answers);
             pickTeamMember();
             //causes a continous loop because we return back to the past function
         });
@@ -139,6 +145,17 @@ function internQuestions(){
         });
 }
 
-
-
 pickTeamMember();
+
+const writeFile = data => {
+    fs.writeFile('./index.html'), data, err => {
+        if (err) {
+            console.log(err);
+            return;
+        } else {
+            console.log("Your team's information has been recorded!")
+        }
+    }
+}
+
+
