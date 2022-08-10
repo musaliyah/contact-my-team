@@ -45,6 +45,8 @@ function pickTeamMember (){
         if (answers.team === "Done")
         {
             console.log("An html for your team's information has been created!")
+            // fs.writeFile("./index.html"),
+            // generateHTML(memberArray);
         }
 
     });
@@ -109,6 +111,7 @@ function enginnerQuestions(){
 
         ])
         .then((answers) => {
+            memberArray.push(answers);
             pickTeamMember();
             //causes a continous loop because we return back to the past function
         });
@@ -140,22 +143,15 @@ function internQuestions(){
 
         ])
         .then((answers) => {
+            memberArray.push(answers);
             pickTeamMember();
             //causes a continous loop because we return back to the past function
         });
+        
 }
 
 pickTeamMember();
 
-const writeFile = data => {
-    fs.writeFile('./index.html'), data, err => {
-        if (err) {
-            console.log(err);
-            return;
-        } else {
-            console.log("Your team's information has been recorded!")
-        }
-    }
-}
+
 
 
