@@ -1,3 +1,4 @@
+function generateHTML (){
 function generateManager (manager) {
     return
     `
@@ -38,4 +39,5 @@ function generateEngineer (engineer) {
         </div>
     </div>
     `;
+}
 }

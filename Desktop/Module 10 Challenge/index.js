@@ -1,7 +1,6 @@
-const generateHTML = require('./generateHTML');
-
 const inquirer  = require('inquirer');
 const fs = require('fs');
+const generateHTML = require('./generateHTML');
 
 const Manager = require("./lib/manager");
 const Engineer = require("./lib/engineer");
@@ -10,40 +9,40 @@ const memberArray = [];
 
 
 
-    // function pickTeamMember () {
-    //     inquirer
-    //         .prompt ([
-    //             {
-    //                 type: "list",
-    //                 message: "Pick an employee to add to your team and input information about: ",
-    //                 name: "team",
-    //                 choices: [
-    //                     "Team Manager",
-    //                     "Engineer",
-    //                     "Intern",
-    //                     "Done"
-    //                 ]
+    function pickTeamMember () {
+        inquirer
+            .prompt ([
+                {
+                    type: "list",
+                    message: "Pick an employee to add to your team and input information about: ",
+                    name: "team",
+                    choices: [
+                        "Team Manager",
+                        "Engineer",
+                        "Intern",
+                        "Done"
+                    ]
 
-    //             }
-    //         ])
-    //         .then(function (selection) {
-    //             switch(selection.team) {
+                }
+            ])
+            .then(function (selection) {
+                switch(selection.team) {
                    
-    //                 case "Manager": managerQuestions();
-    //                     break;
+                    case "Manager": managerQuestions();
+                        break;
 
-    //                 case "Engineer": enginnerQuestions();
-    //                     break;
+                    case "Engineer": enginnerQuestions();
+                        break;
 
-    //                 case "Intern": internQuestions();
-    //                     break;
+                    case "Intern": internQuestions();
+                        break;
 
-    //                 default: createHTML();
+                    default: createHTML();
 
-    //             }
+                }
 
-    //         })
-    // }
+            })
+    }
 
 //delete og pickTeamMember later 
 // function pickTeamMember (){
@@ -194,8 +193,8 @@ function internQuestions(){
         });
         
 }
-
-
+// }
+userInput();
 pickTeamMember();
 
 
