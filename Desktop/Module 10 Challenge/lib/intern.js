@@ -1,3 +1,5 @@
+const Employee = require ("./Employee");
+
 class Intern {
     constructor(name, id, email, school){
         this.name = name;

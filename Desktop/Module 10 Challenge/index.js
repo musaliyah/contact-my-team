@@ -1,50 +1,52 @@
+const generateHTML = require('./generateHTML');
+
 const inquirer  = require('inquirer');
 const fs = require('fs');
-const generateHTML = require('./generateHTML');
 
 const Manager = require("./lib/manager");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
 const memberArray = [];
 
-function userInput () {
 
-    function chooseTeam () {
-        inquirer
-            .prompt ([
-                {
-                    type: "list",
-                    message: "Pick an employee to add to your team and input information about: ",
-                    name: "team",
-                    choices: [
-                        "Team Manager",
-                        "Engineer",
-                        "Intern",
-                        "Done"
-                    ]
 
-                }
-            ])
-            .then(function (selection) {
-                switch(selection.team) {
+    // function pickTeamMember () {
+    //     inquirer
+    //         .prompt ([
+    //             {
+    //                 type: "list",
+    //                 message: "Pick an employee to add to your team and input information about: ",
+    //                 name: "team",
+    //                 choices: [
+    //                     "Team Manager",
+    //                     "Engineer",
+    //                     "Intern",
+    //                     "Done"
+    //                 ]
+
+    //             }
+    //         ])
+    //         .then(function (selection) {
+    //             switch(selection.team) {
                    
-                    case "Manager": managerQuestions();
-                        break;
+    //                 case "Manager": managerQuestions();
+    //                     break;
 
-                    case "Engineer": enginnerQuestions();
-                        break;
+    //                 case "Engineer": enginnerQuestions();
+    //                     break;
 
-                    case "Intern": internQuestions();
-                        break;
+    //                 case "Intern": internQuestions();
+    //                     break;
 
-                    default: createHTML();
+    //                 default: createHTML();
 
-                }
+    //             }
 
-            })
-    }
-}
-function pickTeamMember (){
+    //         })
+    // }
+
+//delete og pickTeamMember later 
+// function pickTeamMember (){
 
     // inquirer 
     //     .prompt([
@@ -64,33 +66,33 @@ function pickTeamMember (){
     
 
 
-    .then((answers)=> {
+    // .then((answers)=> {
        
 
-        if (answers.team === "Team Manager")
-         {
-            managerQuestions();
-        }
+    //     if (answers.team === "Team Manager")
+    //      {
+    //         managerQuestions();
+    //     }
 
-        if (answers.team === "Engineer")
-        {
-            enginnerQuestions();
-        }
+    //     if (answers.team === "Engineer")
+    //     {
+    //         enginnerQuestions();
+    //     }
 
-        if (answers.team === "Intern")
-        {
-            internQuestions();
-        }
+    //     if (answers.team === "Intern")
+    //     {
+    //         internQuestions();
+    //     }
 
-        if (answers.team === "Done")
-        {
-            console.log("An html for your team's information has been created!")
-            // fs.writeFile("./index.html"),
-            // generateHTML(memberArray);
-        }
+    //     if (answers.team === "Done")
+    //     {
+    //         console.log("An html for your team's information has been created!")
+    //         // fs.writeFile("./index.html"),
+    //         // generateHTML(memberArray);
+    //     }
 
-    });
-}
+    // });
+// }
 
 function managerQuestions (){
     inquirer
@@ -119,7 +121,8 @@ function managerQuestions (){
         ])
         .then((answers) => {
             
-            memberArray.push(answers);
+            const manager = new Manager(answers.managerName, answers.managerID, answers.managerEmail, answers.managerNumber)
+            memberArray.push(manager);
             pickTeamMember();
             //causes a continous loop because we return back to the past function
         });
@@ -151,7 +154,8 @@ function enginnerQuestions(){
 
         ])
         .then((answers) => {
-            memberArray.push(answers);
+            const engineer = new Engineer(answers.engineerName, answers.engineerID, answers.engineerEmail, answers.engineerGithub)
+            memberArray.push(engineer);
             pickTeamMember();
             //causes a continous loop because we return back to the past function
         });
@@ -183,12 +187,14 @@ function internQuestions(){
 
         ])
         .then((answers) => {
-            memberArray.push(answers);
+            const intern = new Intern(answers.internName, answers.internID, answers.internEmail, answers.internSchool)
+            memberArray.push(intern);
             pickTeamMember();
             //causes a continous loop because we return back to the past function
         });
         
 }
+
 
 pickTeamMember();
 
