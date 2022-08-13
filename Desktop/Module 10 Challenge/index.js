@@ -2,201 +2,149 @@ const inquirer  = require('inquirer');
 const fs = require('fs');
 const generateHTML = require('./generateHTML');
 
+const path = require("path");
+const OUTPUT_DIR = path.resolve(__dirname, "output")
+const outputPath = path.join(OUTPUT_DIR, "team.html")
 const Manager = require("./lib/manager");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
+
+
 const memberArray = [];
 
-
-
-    function pickTeamMember () {
-        inquirer
-            .prompt ([
-                {
-                    type: "list",
-                    message: "Pick an employee to add to your team and input information about: ",
-                    name: "team",
-                    choices: [
-                        "Team Manager",
-                        "Engineer",
-                        "Intern",
-                        "Done"
-                    ]
-
-                }
-            ])
-            .then(function (selection) {
-                switch(selection.team) {
-                   
-                    case "Manager": managerQuestions();
-                        break;
-
-                    case "Engineer": enginnerQuestions();
-                        break;
-
-                    case "Intern": internQuestions();
-                        break;
-
-                    default: createHTML();
-
-                }
-
-            })
-    }
-
-//delete og pickTeamMember later 
-// function pickTeamMember (){
-
-    // inquirer 
-    //     .prompt([
-    //             {
-    //             type: "list",
-    //             message: "Pick which team member you want to enter information for: ",
-    //             name: "team",
-    //             choices: [
-    //                 "Team Manager",
-    //                 "Engineer",
-    //                 "Intern",
-    //                 "Done"
-    //             ]
-    //             }   
-
-    // ])
+const managerQuestions = () => {
+    return inquirer.prompt ([
+        {
+            type: "input",
+            message: "What is your team manager's name?",
+            name: "name",
+        },
+        {
+            type: "input",
+            message: "What is your team manager's employee ID?",
+            name: "id"
+        },
+        {
+            type: "input",
+            message: "What is your team manager's email?",
+            name: "email"
+        },
+        {
+            type: "input",
+            message: "What is your team manager's office number?",
+            name: "number"
+        } 
+    ]).then(answers => {
+        console.log("Your manager's information" + answers);
+        const manager = new Manager(answers.name, answers.id, answers.email, answers.number)
+        memberArray.push(manager)
+        pickTeamMember();
+    })
     
+};
 
 
-    // .then((answers)=> {
-       
 
-    //     if (answers.team === "Team Manager")
-    //      {
-    //         managerQuestions();
-    //     }
 
-    //     if (answers.team === "Engineer")
-    //     {
-    //         enginnerQuestions();
-    //     }
 
-    //     if (answers.team === "Intern")
-    //     {
-    //         internQuestions();
-    //     }
-
-    //     if (answers.team === "Done")
-    //     {
-    //         console.log("An html for your team's information has been created!")
-    //         // fs.writeFile("./index.html"),
-    //         // generateHTML(memberArray);
-    //     }
-
-    // });
-// }
-
-function managerQuestions (){
-    inquirer
-        .prompt([
-            {
-                type: "input",
-                message: "What is your team manager's name?",
-                name: "managerName",
-            },
-            {
-                type: "input",
-                message: "What is your team manager's employee ID?",
-                name: "managerID"
-            },
-            {
-                type: "input",
-                message: "What is your team manager's email?",
-                name: "managerEmail"
-            },
-            {
-                type: "input",
-                message: "What is your team manger's office number?",
-                name: "managerNumber"
-            }
-
-        ])
-        .then((answers) => {
+const pickTeamMember = () => {
+    return inquirer.prompt([
+        {
+            type: 'list',
+            name: 'pickMember',
+            messages: 'What member would you like to add to your team roster?',
+            choices: ['manager', 'engineer', 'intern', 'done']
+        }
+    ]).then(input => {
+        switch(input.pickMember) {
+            case "manager":
+                managerQuestions();
+                break;
             
-            const manager = new Manager(answers.managerName, answers.managerID, answers.managerEmail, answers.managerNumber)
-            memberArray.push(manager);
-            pickTeamMember();
-            //causes a continous loop because we return back to the past function
-        });
+            case "engineer":
+                engineerQuestions();
+                break;
+            
+            case "intern":
+                internQuestions();
+                break;
+            case "done":
+                assemble();
+                break;
+        } 
+    })
 }
 
-function enginnerQuestions(){
-    inquirer
-        .prompt([
-            {
-                type: "input",
-                message: "What is your team engineer's name?",
-                name: "engineerName",
-            },
-            {
-                type: "input",
-                message: "What is your engineer's employee ID?",
-                name: "engineerID"
-            },
-            {
-                type: "input",
-                message: "What is your engineer's email?",
-                name: "engineerEmail"
-            },
-            {
-                type: "input",
-                message: "What is your engineer's GitHub?",
-                name: "engineerGitHub"
-            }
+const engineerQuestions = () => {
+    return inquirer.prompt([
+        {
+            type: "input",
+            message: "What is your team engineer's name?",
+            name: "name",
+        },
+        {
+            type: "input",
+            message: "What is your engineer's employee ID?",
+            name: "id"
+        },
+        {
+            type: "input",
+            message: "What is your engineer's email?",
+            name: "email"
+        },
+        {
+            type: "input",
+            message: "What is your engineer's GitHub?",
+            name: "github"
+        }
+    ])
+    .then((answers) => {
+        console.log("Your manager's information: " + answers);
+        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
+        memberArray.push(engineer);
+        pickTeamMember();
 
-        ])
-        .then((answers) => {
-            const engineer = new Engineer(answers.engineerName, answers.engineerID, answers.engineerEmail, answers.engineerGithub)
-            memberArray.push(engineer);
-            pickTeamMember();
-            //causes a continous loop because we return back to the past function
-        });
+    });
+};
+
+const internQuestions = () => {
+    return inquirer.prompt([
+        {
+            type: "input",
+            message: "What is your intern's name?",
+            name: "name",
+        },
+        {
+            type: "input",
+            message: "What is your intern's employee ID?",
+            name: "id"
+        },
+        {
+            type: "input",
+            message: "What is your intern's email?",
+            name: "email"
+        },
+        {
+            type: "input",
+            message: "What is your intern's school?",
+            name: "school"
+        }
+    ])
+    .then((answers) => {
+        console.log("Your inten's information " + answers);
+        const intern = new Intern(answers.name, answers.id, answers.email, answers.github)
+        memberArray.push(intern);
+        pickTeamMember();
+    })
 }
 
-function internQuestions(){
-    inquirer
-        .prompt([
-            {
-                type: "input",
-                message: "What is your intern's name?",
-                name: "internName",
-            },
-            {
-                type: "input",
-                message: "What is your intern's employee ID?",
-                name: "internID"
-            },
-            {
-                type: "input",
-                message: "What is your intern's email?",
-                name: "internEmail"
-            },
-            {
-                type: "input",
-                message: "What is your intern's school?",
-                name: "internSchool"
-            }
+const assemble = () => {
+    console.log("Your team is assembled!");
+    if(!fs.existsSync(OUTPUT_DIR)){
+        fs.mkdirSync(OUTPUT_DIR)
+    }
+    fs.writeFileSync(outputPath, generateHTML(memberArray), "utf-8");
 
-        ])
-        .then((answers) => {
-            const intern = new Intern(answers.internName, answers.internID, answers.internEmail, answers.internSchool)
-            memberArray.push(intern);
-            pickTeamMember();
-            //causes a continous loop because we return back to the past function
-        });
-        
 }
-// }
-userInput();
+
 pickTeamMember();
-
-
-
-
