@@ -16,7 +16,7 @@ test("Test: Can we get the intern's name from the method?", () => {
 });
 
 test("Test: Can we get the intern's ID from the method?", () => {
-    expect(intern.getID().toBe('222222'));
+    expect(intern.getID()).toBe('222222');
 });
 
 test("Test: Can we get the intern's email from the method?", () => {
@@ -24,5 +24,5 @@ test("Test: Can we get the intern's email from the method?", () => {
 });
 
 test("Test: Can we get the intern's school from the method?", () => {
-    expect(intern.getSchool().toBe('NYU'));
+    expect(intern.getSchool()).toBe('NYU');
 })

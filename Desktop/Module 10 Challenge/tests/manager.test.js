@@ -18,9 +18,9 @@ test("Test: Can we get the manager's name from the method?", () => {
 });
 
 test("Test: Can we get the manager's ID from the method?", () => {
-    expect(manager.getID().toBe('111111'));
+    expect(manager.getID()).toBe('111111');
 });
 
 test("Test: Can we get the manager's office number from the method?", () => {
-    expect(manager.getNumber().toBe('000-000-0000'))
+    expect(manager.getNumber()).toBe('000-000-0000');
 })
