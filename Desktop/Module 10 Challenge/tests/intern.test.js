@@ -1,7 +1,7 @@
 const Intern = require ('../lib/intern');
-const intern = new intern('gus fring', '222222', 'gusfring@gmail.com', 'NYU');
+const intern = new Intern('gus fring', '222222', 'gusfring@gmail.com', 'NYU');
 
-test ("Test: Can we gather values from the intern object?", () => {
+test("Test: Can we gather values from the intern object?", () => {
     expect(intern.name).toBe('gus fring');
     expect(intern.id).toBe('222222');
     expect(intern.email).toBe('gusfring@gmail.com')

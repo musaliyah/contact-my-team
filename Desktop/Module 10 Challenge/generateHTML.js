@@ -2,46 +2,56 @@ const generateHTML = (team) => {
     const html = [];
     const generateManager = manager => {
         let managerCard = `
-        <div class ="card" style="width: 18rem;">
-            <div class ="card-header">
-            ${manager.name} </br>
-            <i class=:fas fa-mug-hot"></i>Manager</div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">ID: ${manager.id}</li>
-                <li class="list-group-item">Email: <span id="email"><a href="mailto:${manager.email}">${manager.email}</a></span></li>
-                <li class="list-group-item">Office Number: ${manager.number}</li>
+        <div class="card employee-card" style="width: 18rem;">
+            <div class="card-header bg-primary text-white">
+                <h2 class="card-title">${manager.name}</h2>
+                <br>Manager</br>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">ID: ${manager.id}</li>
+                    <li class="list-group-item">Email: <a href="mailto:${manager.email}">${manager.email}</a></li>
+                    <li class="list-group-item">Number: ${manager.officeNumber}</li>
                 </ul>
             </div>
+        <div>
+
         `;
         html.push(managerCard);
     }
     const generateEngineer = engineer => {
         let engineerCard = `
-        <div class ="card" style="width: 18rem;">
-            <div class ="card-header">
-            ${engineer.name} </br>
-            <i class=:fas fa-mug-hot"></i>Manager</div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">ID: ${engineer.id}</li>
-                <li class="list-group-item">Email: <span id="email"><a href="mailto:${engineer.email}">${engineer.email}</a></span></li>
-                <li class="list-group-item">GitHub Username: <a target="_blank" href="https://github.com/${engineer.github}>${engineer.github}</a></li>
+        <div class="card employee-card" style="width: 18rem;">
+            <div class="card-header bg-primary text-white">
+                <h2 class="card-title">${engineer.name}</h2>
+                <br>Engineer</br>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">ID: ${engineer.id}</li>
+                    <li class="list-group-item">Email: ${engineer.email}</li>
+                    <li class="list-group-item">GitHub: <a href="https://github.com/${engineer.github}" target="_blank" rel="noopener noraferrer>${engineer.github}</a></li>
                 </ul>
             </div>
+        <div>
         `;
         html.push(engineerCard);
     }
     const generateIntern = intern => {
         let internCard = `
-          <div class ="card" style="width: 18rem;">
-            <div class ="card-header">
-            ${intern.name} </br>
-            <i class=:fas fa-mug-hot"></i>Manager</div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">ID: ${intern.id}</li>
-                <li class="list-group-item">Email: <span id="email"><a href="mailto:${intern.email}">${intern.email}</a></span></li>
-                <li class="list-group-item">School: ${intern.school}</li>
+        <div class="card employee-card" style="width: 18rem;">
+            <div class="card-header bg-primary text-white">
+                <h2 class="card-title">${intern.name}</h2>
+                <br>Intern</br>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">ID: ${intern.id}</li>
+                    <li class="list-group-item">Email: ${intern.email}</li>
+                    <li class="list-group-item">School: ${intern.school}</li>
                 </ul>
             </div>
+        <div>
         `;
         html.push(internCard);
     }
@@ -78,10 +88,9 @@ module.exports = team => {
     <link rel="stylesheet" href="../dist/style.css" />
     <body>
     <header>
-    <div class="jumbotron jumbotron-fluid">
+    <div class="jumbotron jumbotron-fluid text-center">
     <div class="container">
-      <h1 class="display-4">Fluid jumbotron</h1>
-      <p class="lead">My Team</p>
+      <h1 class="display-4">My Team</h1>
     </header>
     <main>
         <div class="container">
@@ -98,3 +107,4 @@ module.exports = team => {
 
     `
 }
+

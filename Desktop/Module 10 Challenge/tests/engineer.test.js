@@ -1,14 +1,14 @@
 const Engineer = require ('../lib/engineer');
-const engineer = new engineer('saul goodman', '333333', 'sgoodman@gmail.com', 'sgoodman');
+const engineer = new Engineer('saul goodman', '333333', 'sgoodman@gmail.com', 'sgoodman');
 
-test ("Test: Can we gather values from the engineer object?", () => {
+test("Test: Can we gather values from the engineer object?", () => {
     expect(engineer.name).toBe('saul goodman');
     expect(engineer.id).toBe('333333');
     expect(engineer.email).toBe('sgoodman@gmail.com')
 });
 
 test("Test: Can we get the engineer role from the method?", () => {
-    expect(engineer.getRole()).toBe('engineer');
+    expect(engineer.getRole()).toBe('Engineer');
 });
 
 test("Test: Can we get the engineer's name from the method?", () => {

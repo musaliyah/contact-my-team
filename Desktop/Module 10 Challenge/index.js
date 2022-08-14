@@ -32,11 +32,11 @@ const managerQuestions = () => {
         {
             type: "input",
             message: "What is your team manager's office number?",
-            name: "number"
+            name: "officeNumber"
         } 
     ]).then(answers => {
         console.log("Your manager's information" + answers);
-        const manager = new Manager(answers.name, answers.id, answers.email, answers.number)
+        const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
         memberArray.push(manager)
         pickTeamMember();
     })
@@ -132,7 +132,7 @@ const internQuestions = () => {
     ])
     .then((answers) => {
         console.log("Your inten's information " + answers);
-        const intern = new Intern(answers.name, answers.id, answers.email, answers.github)
+        const intern = new Intern(answers.name, answers.id, answers.email, answers.school)
         memberArray.push(intern);
         pickTeamMember();
     })
