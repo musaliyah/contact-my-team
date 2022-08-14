@@ -108,7 +108,7 @@ const engineerQuestions = () => {
 
     });
 };
-
+// Functions in similar way as the engineerQuestions() and managerQuestions() functions. 
 const internQuestions = () => {
     return inquirer.prompt([
         {
@@ -138,7 +138,7 @@ const internQuestions = () => {
         pickTeamMember();
     })
 }
-
+// The assemble() function sends the user's input as an array, and inputs it into an html template which populates the output folder. 
 const assemble = () => {
     console.log("Your team is assembled!");
     if(!fs.existsSync(OUTPUT_DIR)){
@@ -147,5 +147,5 @@ const assemble = () => {
     fs.writeFileSync(outputPath, generateHTML(memberArray), "utf-8");
 
 }
-
+// Loops prompts until user selects done
 pickTeamMember();
