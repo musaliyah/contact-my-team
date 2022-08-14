@@ -1,17 +1,19 @@
 const inquirer  = require('inquirer');
 const fs = require('fs');
-const generateHTML = require('./generateHTML');
+const generateHTML = require('./src/generateHTML');
 
 const path = require("path");
+// Referenced: https://nodejs.org/api/path.html
 const OUTPUT_DIR = path.resolve(__dirname, "output")
 const outputPath = path.join(OUTPUT_DIR, "team.html")
 const Manager = require("./lib/manager");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
 
-
+// Creates an array for team member's information to be stored within
 const memberArray = [];
 
+// Prompts user with Manager questions (name, id, email, office number)
 const managerQuestions = () => {
     return inquirer.prompt ([
         {
@@ -35,7 +37,7 @@ const managerQuestions = () => {
             name: "officeNumber"
         } 
     ]).then(answers => {
-        console.log("Your manager's information" + answers);
+        // Stores user input into Manager object, which is pushed into the memberArray. 
         const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
         memberArray.push(manager)
         pickTeamMember();
@@ -43,9 +45,7 @@ const managerQuestions = () => {
     
 };
 
-
-
-
+// Prompts user to pick which type of team member they would like to input information for
 
 const pickTeamMember = () => {
     return inquirer.prompt([
@@ -56,6 +56,8 @@ const pickTeamMember = () => {
             choices: ['manager', 'engineer', 'intern', 'done']
         }
     ]).then(input => {
+        // Referenced: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch
+        // Switch statements that determine various paths based on user's input and choices. When the user selects done, the assemble() function is called to incorpate all of the responses. 
         switch(input.pickMember) {
             case "manager":
                 managerQuestions();
@@ -75,6 +77,7 @@ const pickTeamMember = () => {
     })
 }
 
+// Similar to managerQuestions function, the engineerQuestions function prompts user's with Engineer questions and then stores their responses into an engineer object, which is then added to the memberArray. 
 const engineerQuestions = () => {
     return inquirer.prompt([
         {
@@ -99,7 +102,6 @@ const engineerQuestions = () => {
         }
     ])
     .then((answers) => {
-        console.log("Your manager's information: " + answers);
         const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
         memberArray.push(engineer);
         pickTeamMember();
@@ -131,7 +133,6 @@ const internQuestions = () => {
         }
     ])
     .then((answers) => {
-        console.log("Your inten's information " + answers);
         const intern = new Intern(answers.name, answers.id, answers.email, answers.school)
         memberArray.push(intern);
         pickTeamMember();
